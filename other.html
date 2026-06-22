@@ -125,6 +125,7 @@ footer{position:relative;z-index:1;background:rgba(10,35,66,.97);color:rgba(255,
     .tab-btn:hover:not(.active){background:var(--bl);}
     .tab-pane{display:none;}.tab-pane.active{display:block;}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <nav>
@@ -276,6 +277,10 @@ footer{position:relative;z-index:1;background:rgba(10,35,66,.97);color:rgba(255,
 @keyframes sup{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:1024px){.sg{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:768px){.sg{grid-template-columns:repeat(2,1fr);}.nm{display:none;}.hb .num{font-size:48px;}}
+.chart-section{background:rgba(255,255,255,0.04);border:1px solid rgba(200,169,110,0.2);border-radius:20px;padding:40px;margin:0 5% 40px;backdrop-filter:blur(12px);}
+.chart-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.chart-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:28px;}
+.chart-wrap{position:relative;height:420px;}
 </style>
 </head>
 <body>
@@ -388,6 +393,11 @@ footer{position:relative;z-index:1;background:rgba(10,35,66,.97);color:rgba(255,
       </div>
     </div>
   </div>
+</div>
+<div class="chart-section">
+  <div class="chart-title">💰 Yearly Spend by Supplier</div>
+  <div class="chart-sub">Other category — ranked by spend</div>
+  <div class="chart-wrap"><canvas id="spendChart"></canvas></div>
 </div>
 <footer>
   <div class="fb"><strong>CASCO</strong><span>AN AMPHENOL COMPANY</span></div>
@@ -613,6 +623,47 @@ tbody.querySelectorAll('.dl').forEach(function(link) {
 
 // Init
 applyFilters();
+(function() {
+  var sorted = suppliers.slice().sort(function(a,b){
+    return parseFloat(b.yearly_spend.replace(/[^0-9.]/g,'')) - parseFloat(a.yearly_spend.replace(/[^0-9.]/g,''));
+  });
+  var labels = sorted.map(function(s){ return s.name.length > 20 ? s.name.substring(0,20)+'…' : s.name; });
+  var values = sorted.map(function(s){ return parseFloat(s.yearly_spend.replace(/[^0-9.]/g,'')); });
+  var colors = ['#2563eb','#0ea5e9','#10b981','#c8a96e','#6366f1','#f59e0b','#ef4444','#8b5cf6','#14b8a6','#f97316','#ec4899','#84cc16','#06b6d4','#a855f7'];
+  var ctx = document.getElementById('spendChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{ data: values, backgroundColor: colors, borderRadius: 6, borderSkipped: false }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: function(c){ return sorted[c[0].dataIndex].name; },
+            label: function(c){ return ' $' + c.raw.toLocaleString(); }
+          }
+        }
+      },
+      scales: {
+        x: { grid:{display:false}, ticks:{font:{size:10},color:'rgba(255,255,255,0.6)',maxRotation:45} },
+        y: {
+          grid:{color:'rgba(255,255,255,0.08)'},
+          ticks:{font:{size:11},color:'rgba(255,255,255,0.6)',
+            callback:function(v){
+              if(v>=1000000) return '$'+(v/1000000).toFixed(1)+'M';
+              if(v>=1000) return '$'+(v/1000).toFixed(0)+'K';
+              return '$'+v;
+            }
+          }
+        }
+      }
+    }
+  });
+})();
 </script>
 </body>
 </html>
