@@ -447,18 +447,18 @@
   <div style="width:100%;max-width:960px;margin:0 auto;padding:100px 5% 60px;text-align:center;">
 
     <!-- Badge -->
-    <div style="display:inline-block;background:rgba(200,169,110,0.15);border:1px solid rgba(200,169,110,0.4);color:#c8a96e;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:20px;">
-      CASCO Automotive Tunisia — Purchasing Department
-    </div>
+    <p style="display:inline-block;background:rgba(200,169,110,0.15);border:1px solid rgba(200,169,110,0.4);color:#fff;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:20px;">
+      Centralized platform for managing all direct suppliers
+    </p>
 
     <!-- Title -->
     <h1 style="font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);font-weight:700;color:#fff;margin-bottom:12px;">
       Supplier Management <em style="color:#c8a96e;">Portal 2026</em>
     </h1>
-    <p style="font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:28px;">
-      Centralized platform for managing all direct and indirect suppliers
-    </p>
-    <a href="suppliers.html" class="btn-primary" style="margin-bottom:48px;display:inline-block;">View Suppliers →</a>
+    
+<div style="display:inline-block;background:rgba(200,169,110,0.15);border:1px solid rgba(200,169,110,0.4);color:#c8a96e;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:20px;">
+      CASCO Automotive Tunisia — Purchasing Department
+    </div>
 
     <!-- ORG CHART TITLE -->
     <div style="margin-bottom:28px;">
@@ -540,89 +540,7 @@
 </section>
 
 <!-- ── STATS BAR ── -->
-<section class="stats-bar" style="justify-content:center;">
-  <div class="stat-item animate-up" style="max-width:320px;flex:none;padding:40px 60px;">
-    <div class="stat-icon">🏭</div>
-    <div class="stat-number"><span class="counter" data-target="83">0</span></div>
-    <div class="stat-label">Total Suppliers</div>
-  </div>
-</section>
 
-<!-- ── ABOUT ── -->
-<section class="about" id="about">
-  <div class="about-grid">
-    <div class="about-text animate-up">
-      <div class="section-label">About Our Company</div>
-      
-      <p>Casco Products is part of the <strong>Amphenol Corporation</strong>. As a multi-billion-dollar Fortune 500 company, Amphenol is one of the largest manufacturers of interconnect products in the world.</p>
-      <p>Founded in 1932, Amphenol designs, manufactures and markets electrical, electronic and fiber optic connectors, interconnect systems, antennas, sensors and sensor-based products and coaxial and high-speed specialty cable.</p>
-      <p>The primary end markets include communications and information processing, cable television, cellular telephone, data communication systems, aerospace and military electronics, and automotive, rail and other transportation and industrial applications.</p>
-      <div class="about-features">
-        <div class="feature-row">
-          <div class="feature-icon">🔍</div>
-          <div class="feature-text">
-            <strong>Smart Search & Filters</strong>
-            <span>Find any supplier instantly by name, country, or status</span>
-          </div>
-        </div>
-        
-        
-      </div>
-    </div>
-    <div class="about-visual animate-up" style="transition-delay:0.2s">
-      <div class="about-card">
-        <div class="about-card-title">Supplier Overview</div>
-        <div class="about-card-sub">Real-time  — 2026</div>
-        <div class="about-card-stats" style="grid-template-columns:1fr;">
-          <div class="mini-stat" style="text-align:center;padding:28px;">
-            <div class="mini-stat-num" style="font-size:48px;">83</div>
-            <div class="mini-stat-label" style="font-size:15px;margin-top:8px;">2026</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-brand"><strong style="color:#fff;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:1px;">CASCO AUTOMOTIVE TUNISIA </strong><span style="font-size:11px;font-weight:400;color:rgba(255,255,255,0.7);letter-spacing:1.5px;display:block;line-height:1;margin-top:2px;">AN AMPHENOL COMPANY</span></div>
-  
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="suppliers.html">Suppliers</a>
-  </div>
-</footer>
-
-<script>
-  // ── Scroll animation ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.animate-up').forEach(el => observer.observe(el));
-
-  // ── Counter animation ──
-  function animateCounter(el) {
-    const target = +el.dataset.target;
-    let current = 0;
-    const step = Math.ceil(target / 60);
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = current.toLocaleString();
-      if (current >= target) clearInterval(timer);
-    }, 24);
-  }
-
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        animateCounter(e.target);
-        counterObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 </script>
 </body>
 </html>
